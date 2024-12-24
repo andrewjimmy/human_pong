@@ -1,5 +1,6 @@
 import pygame
 import random
+from PosDetector import PosDetector
 
 pygame.init()
 SCREEN_WIDTH = 700
@@ -25,12 +26,30 @@ right_paddle_pos = SCREEN_HEIGHT // 2
 player1_score = 0
 player2_score = 0
 
+posDetector = PosDetector()
+
+paddle_pos = [0, 0]
+paddle_order = [0, 0]
+
 #Begin Game!
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+
+    results = posDetector.capture_faces()
+    
+    if results.detections:
+            #print(results.detections)
+            for i, detection in enumerate(results.detections):
+                if(i < 2):
+                    bboxC = detection.location_data.relative_bounding_box
+                    x, y = int(SCREEN_WIDTH - (2*bboxC.xmin + bboxC.width)*SCREEN_WIDTH/2), int((2*bboxC.ymin + bboxC.height)*SCREEN_HEIGHT/2)
+                    print(x, y)
+                    paddle_pos[i] = y
+                    paddle_order[i] = x
+                    pygame.draw.circle(screen, pygame.Color(255, 0, 0), [x, y], 3)
 
     #Create Ball
     pygame.draw.circle(screen, ball_color, [x_pos, y_pos], 10)
@@ -55,19 +74,24 @@ while running:
     #Create Left Paddle
     pygame.draw.line(screen, paddle_color, [25, left_paddle_pos - 25], [25, left_paddle_pos + 25], 10)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-       left_paddle_pos -= 10
-    if keys[pygame.K_s]:
-        left_paddle_pos += 10
-
+    #if keys[pygame.K_w]:
+    #   left_paddle_pos -= 10
+    #if keys[pygame.K_s]:
+    #    left_paddle_pos += 10
+    if paddle_order[0] < paddle_order[1]:
+        left_paddle_pos = paddle_pos[0]
+        right_paddle_pos = paddle_pos[1]
+    else:
+        left_paddle_pos = paddle_pos[1]
+        right_paddle_pos = paddle_pos[0]
     #Create Right Paddle
     pygame.draw.line(screen, paddle_color, [SCREEN_WIDTH - 25, right_paddle_pos - 25], [SCREEN_WIDTH - 25, right_paddle_pos + 25], 10)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
-        right_paddle_pos -= 10
-    if keys[pygame.K_DOWN]:
-        right_paddle_pos += 10
-
+    #if keys[pygame.K_UP]:
+    #    right_paddle_pos -= 10
+    #if keys[pygame.K_DOWN]:
+    #    right_paddle_pos += 10
+    
 
     #Ball Bounces off the paddles
     if (x_pos <= 35
@@ -88,7 +112,7 @@ while running:
     text = pygame.font.SysFont("timensnewroman", 50).render("Enemy's Score = " + str(player2_score), True, "grey")
     screen.blit(text, [SCREEN_WIDTH // 2 - text.get_width(), 100])
 
-    if player1_score == 10 or player2_score == 10:
+    if player1_score == 100 or player2_score == 100:
         text = pygame.font.SysFont("timensnewroman", 100).render("Winner!!!!", True, "darkgreen")
         screen.blit(text, [SCREEN_WIDTH // 2 - text.get_width() // 2, SCREEN_HEIGHT // 2])
         running = False

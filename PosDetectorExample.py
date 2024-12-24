@@ -30,6 +30,7 @@ with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         if results.detections:
+            print(results.detections)
             for i, detection in enumerate(results.detections):
                 # Draw the face bounding box and keypoints
                 mp_drawing.draw_detection(image, detection)
