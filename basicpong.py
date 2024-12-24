@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 pygame.init()
 SCREEN_WIDTH = 700
@@ -106,6 +107,5 @@ while end_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # User clicked the window's X button
             end_running = False
-
 pygame.quit()
-quit()
+sys.exit(1)
