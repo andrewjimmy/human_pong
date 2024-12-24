@@ -11,8 +11,8 @@ CLOCK_TICK = 30
 
 #Setup Components
 
-ball_color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-paddle_color = color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #make not black
+paddle_color = color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #Not black
 x_pos = SCREEN_WIDTH // 2
 y_pos = SCREEN_HEIGHT // 2
 
@@ -40,7 +40,7 @@ while running:
     #Ball should bounce
     if y_pos >= SCREEN_HEIGHT or y_pos <= 0:
         y_mov *= -1
-        ball_color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
 
     if x_pos <= 0:
         player2_score += 1
@@ -73,12 +73,12 @@ while running:
     if (x_pos <= 35
             and y_pos <= left_paddle_pos + 25 and y_pos >= left_paddle_pos - 25):
         x_mov *= -1
-        paddle_color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        paddle_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
 
     if (x_pos >= SCREEN_WIDTH - 35
             and y_pos <= right_paddle_pos + 25 and y_pos >= right_paddle_pos - 25):
         x_mov *= -1
-        paddle_color = pygame.Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        paddle_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
 
 
     #Keep Score (If ball passes off screen, one point to player)
