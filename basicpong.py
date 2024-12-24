@@ -10,9 +10,9 @@ clock = pygame.time.Clock()
 CLOCK_TICK = 30
 
 #Setup Components
-
-ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #make not black
-paddle_color = color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #Not black
+min_color = 40
+ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #make not black
+paddle_color = color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #Not black
 x_pos = SCREEN_WIDTH // 2
 y_pos = SCREEN_HEIGHT // 2
 
@@ -30,6 +30,7 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.display.quit()
             pygame.quit()
 
     #Create Ball
@@ -40,7 +41,7 @@ while running:
     #Ball should bounce
     if y_pos >= SCREEN_HEIGHT or y_pos <= 0:
         y_mov *= -1
-        ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
+        ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #not black
 
     if x_pos <= 0:
         player2_score += 1
@@ -107,3 +108,4 @@ while end_running:
             end_running = False
 
 pygame.quit()
+quit()
