@@ -11,7 +11,9 @@ clock = pygame.time.Clock()
 CLOCK_TICK = 30
 
 #Setup Components
-min_color = 10
+screen_color = 'black' #Define the screen color (which happens toward the bottom)
+
+min_color = 1
 ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #make not black
 paddle_color = color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #Not black
 x_pos = SCREEN_WIDTH // 2
@@ -97,7 +99,8 @@ while running:
 
     pygame.display.flip()
 
-    screen.fill("black")
+    #screen.fill("black")
+    screen.fill(screen_color)
 
     clock.tick(CLOCK_TICK)
 
