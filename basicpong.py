@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 pygame.init()
 SCREEN_WIDTH = 700
@@ -10,7 +11,7 @@ clock = pygame.time.Clock()
 CLOCK_TICK = 30
 
 #Setup Components
-min_color = 40
+min_color = 10
 ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #make not black
 paddle_color = color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #Not black
 x_pos = SCREEN_WIDTH // 2
@@ -106,6 +107,5 @@ while end_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # User clicked the window's X button
             end_running = False
-
 pygame.quit()
-quit()
+sys.exit(1)
