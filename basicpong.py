@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 from PosDetector import PosDetector
 
 pygame.init()
@@ -11,9 +12,11 @@ clock = pygame.time.Clock()
 CLOCK_TICK = 30
 
 #Setup Components
+screen_color = 'black' #Define the screen color (which happens toward the bottom)
 
-ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #make not black
-paddle_color = color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #Not black
+min_color = 1
+ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #make not black
+paddle_color = color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #Not black
 x_pos = SCREEN_WIDTH // 2
 y_pos = SCREEN_HEIGHT // 2
 
@@ -36,6 +39,7 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.display.quit()
             pygame.quit()
 
     results = posDetector.capture_faces()
@@ -59,7 +63,7 @@ while running:
     #Ball should bounce
     if y_pos >= SCREEN_HEIGHT or y_pos <= 0:
         y_mov *= -1
-        ball_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
+        ball_color = pygame.Color(random.randint(min_color, 255), random.randint(min_color, 255), random.randint(min_color, 255)) #not black
 
     if x_pos <= 0:
         player2_score += 1
@@ -119,7 +123,8 @@ while running:
 
     pygame.display.flip()
 
-    screen.fill("black")
+    #screen.fill("black")
+    screen.fill(screen_color)
 
     clock.tick(CLOCK_TICK)
 
@@ -129,5 +134,5 @@ while end_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # User clicked the window's X button
             end_running = False
-
 pygame.quit()
+sys.exit(1)
