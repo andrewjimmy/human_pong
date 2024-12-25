@@ -36,11 +36,18 @@ paddle_order = [0, 0]
 
 #Begin Game!
 running = True
+end_running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.display.quit()
-            pygame.quit()
+            #pygame.display.quit()
+            #pygame.quit()
+            running = False
+            # Have to turn off end running when clicking close or it will require the user
+            # to click close twice. There is probably a better fix for this, but needs
+            # a rewrite of part of the game engine.
+            end_running = False
+            break
 
     results = posDetector.capture_faces()
     
@@ -129,7 +136,7 @@ while running:
     clock.tick(CLOCK_TICK)
 
 # End game loop to wait for user to click X
-end_running = True
+
 while end_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # User clicked the window's X button
