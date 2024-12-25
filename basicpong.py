@@ -78,33 +78,33 @@ while running:
     #Create Left Paddle
     pygame.draw.line(screen, paddle_color, [25, left_paddle_pos - 25], [25, left_paddle_pos + 25], 10)
     keys = pygame.key.get_pressed()
-    #if keys[pygame.K_w]:
-    #   left_paddle_pos -= 10
-    #if keys[pygame.K_s]:
-    #    left_paddle_pos += 10
-    if paddle_order[0] < paddle_order[1]:
-        left_paddle_pos = paddle_pos[0]
-        right_paddle_pos = paddle_pos[1]
-    else:
-        left_paddle_pos = paddle_pos[1]
-        right_paddle_pos = paddle_pos[0]
+    if keys[pygame.K_w]:
+       left_paddle_pos -= 10
+    if keys[pygame.K_s]:
+        left_paddle_pos += 10
+    #if paddle_order[0] < paddle_order[1]:
+    #    left_paddle_pos = paddle_pos[0]
+    #    right_paddle_pos = paddle_pos[1]
+    #else:
+    #    left_paddle_pos = paddle_pos[1]
+    #    right_paddle_pos = paddle_pos[0]
     #Create Right Paddle
     pygame.draw.line(screen, paddle_color, [SCREEN_WIDTH - 25, right_paddle_pos - 25], [SCREEN_WIDTH - 25, right_paddle_pos + 25], 10)
     keys = pygame.key.get_pressed()
-    #if keys[pygame.K_UP]:
-    #    right_paddle_pos -= 10
-    #if keys[pygame.K_DOWN]:
-    #    right_paddle_pos += 10
+    if keys[pygame.K_UP]:
+        right_paddle_pos -= 10
+    if keys[pygame.K_DOWN]:
+        right_paddle_pos += 10
     
 
     #Ball Bounces off the paddles
     if (x_pos <= 35
-            and y_pos <= left_paddle_pos + 25 and y_pos >= left_paddle_pos - 25):
+            and y_pos <= left_paddle_pos + 25 and y_pos >= left_paddle_pos - 25 and x_mov < 0):
         x_mov *= -1
         paddle_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
 
     if (x_pos >= SCREEN_WIDTH - 35
-            and y_pos <= right_paddle_pos + 25 and y_pos >= right_paddle_pos - 25):
+            and y_pos <= right_paddle_pos + 25 and y_pos >= right_paddle_pos - 25 and x_mov > 0):
         x_mov *= -1
         paddle_color = pygame.Color(random.randint(30, 255), random.randint(30, 255), random.randint(30, 255)) #not black
 
